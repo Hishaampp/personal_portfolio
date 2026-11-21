@@ -30,7 +30,7 @@ function buildItems() {
       run: () => {
         const a = document.createElement('a')
         a.href = siteConfig.resumeUrl
-        a.download = 'Hisham-PP-Resume.pdf'
+        a.download = 'Hisham-Resume.pdf'
         a.click()
       },
     },

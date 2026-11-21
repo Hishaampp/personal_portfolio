@@ -29,7 +29,7 @@ export const experience = [
     period: '2025 – 2026',
     points: [
       'Founded and built Liwi, an AI English-learning app published on Google Play and the App Store',
-      'Built the Flutter app, FastAPI backend and Razorpay subscriptions; reached 10K+ downloads',
+      'Built the Flutter app, FastAPI backend and Razorpay subscriptions'
     ],
   },
   {

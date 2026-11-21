@@ -46,7 +46,7 @@ const projectBlocks = RESUME_PROJECTS.map((id) => projects.find((p) => p.id === 
   .join('')
 
 const html = `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>${esc(siteConfig.name)} - Resume</title>
+<html lang="en"><head><meta charset="utf-8"><title>${esc(siteConfig.fullName)} - Resume</title>
 <style>
   @page { size: A4; margin: 10mm 13mm; }
   * { box-sizing: border-box; }
@@ -66,12 +66,12 @@ const html = `<!doctype html>
   a { color: inherit; text-decoration: none; }
 </style></head>
 <body>
-  <h1>${esc(siteConfig.name.toUpperCase())}</h1>
-  <p class="headline">Full-Stack Developer | Flutter Developer | MCA Student</p>
+  <h1>${esc(siteConfig.fullName.toUpperCase())}</h1>
+  <p class="headline">Software Developer | MCA Student</p>
   <p class="contact">${esc(siteConfig.location.split(' · ')[0])} | ${PHONE} | ${esc(siteConfig.email)} | ${bare(siteConfig.site)} | ${bare(siteConfig.github)} | ${bare(siteConfig.socials.find((s) => s.label === 'LinkedIn').url)}</p>
 
   <h2>Summary</h2>
-  <p>MCA student at Lovely Professional University and full-stack developer who has founded a startup and shipped production apps to real users. Builds web apps with React, Next.js, TypeScript and Supabase/PostgreSQL, and cross-platform mobile apps with Flutter. Published an AI English-learning app with 10K+ downloads and delivered 10+ client projects rated 5.0. Seeking software development internships.</p>
+  <p>Software developer and MCA student at Lovely Professional University who has founded a startup and shipped production apps. Builds web apps with React, Next.js, TypeScript and Supabase/PostgreSQL, and cross-platform mobile apps with Flutter. Published an AI English-learning app on Google Play and the App Store and delivered 10+ client projects rated 5.0. Seeking software development internships.</p>
 
   <h2>Education</h2>
   ${education

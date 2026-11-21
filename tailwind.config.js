@@ -45,12 +45,15 @@ export default {
       borderRadius: {
         window: '1.75rem',
         panel: '1.5rem',
-        card: '1.125rem',
+        card: '1.375rem',
       },
       boxShadow: {
-        card: 'inset 0 1px 0 rgb(255 255 255 / 0.65), 0 10px 30px -18px rgb(3 28 36 / 0.55)',
         window: '0 40px 120px -40px rgb(0 0 0 / 0.9)',
-        glow: '0 0 0 1px rgb(30 196 224 / 0.5), 0 8px 24px -8px rgb(30 196 224 / 0.6)',
+        // offset, soft: the active pill and bars sit just above the surface
+        lift: 'inset 0 1px 0 rgb(255 255 255 / 0.45), 0 6px 16px -6px rgb(8 105 123 / 0.6)',
+      },
+      transitionTimingFunction: {
+        out: 'cubic-bezier(0.22, 1, 0.36, 1)',
       },
       maxWidth: {
         app: '1600px',

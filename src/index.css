@@ -6,68 +6,163 @@
   html {
     color-scheme: dark;
     -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
   }
   body {
     @apply bg-void font-sans text-ink antialiased;
-    font-feature-settings: 'cv11', 'ss01';
+    font-optical-sizing: auto;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    letter-spacing: -0.022em;
   }
   ::selection {
-    background-color: #1ec4e0;
-    color: #0b222a;
+    background-color: rgb(30 196 224 / 0.35);
+    color: inherit;
   }
   :focus-visible {
-    outline: 2px solid #1ec4e0;
+    outline: 2px solid #5fdcf0;
     outline-offset: 2px;
-    border-radius: 6px;
+    border-radius: 10px;
+  }
+  input,
+  textarea {
+    caret-color: #08697b;
   }
 }
 
 @layer components {
-  /* The app window: teal glass sitting on the near-black page. */
+  /* Wallpaper: deep teal with two soft light fields, so the glass above it
+     has colour to refract instead of blurring a flat fill. */
   .app-window {
-    background:
-      radial-gradient(1200px 700px at 12% -10%, rgb(95 220 240 / 0.22), transparent 60%),
-      radial-gradient(900px 600px at 100% 110%, rgb(30 196 224 / 0.12), transparent 60%),
-      linear-gradient(150deg, #2a6d7b 0%, #174552 38%, #0d2b33 100%);
+    background: linear-gradient(155deg, #23606d 0%, #164552 40%, #0c2a32 100%);
+    isolation: isolate;
+    /* clip (not hidden) keeps the light fields inside without breaking the sticky sidebar */
+    overflow: clip;
   }
-  /* Large frosted panel that holds the cards. */
-  .glass-panel {
-    background: rgb(205 228 233 / 0.6);
-    border: 1px solid rgb(255 255 255 / 0.42);
-    backdrop-filter: blur(28px) saturate(140%);
-    -webkit-backdrop-filter: blur(28px) saturate(140%);
+  .app-window::before,
+  .app-window::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    border-radius: 9999px;
+    filter: blur(80px);
+    pointer-events: none;
   }
-  /* Cards inside the panel. */
+  .app-window::before {
+    width: 46rem;
+    height: 30rem;
+    left: 14%;
+    top: -8rem;
+    background: radial-gradient(closest-side, rgb(110 226 243 / 0.42), transparent);
+  }
+  .app-window::after {
+    width: 40rem;
+    height: 34rem;
+    right: -6rem;
+    bottom: -6rem;
+    background: radial-gradient(closest-side, rgb(30 150 170 / 0.45), transparent);
+  }
+
+  /* Light glass: cards that sit on the wallpaper. The 1px inset top line is
+     the specular edge; the offset shadow lifts the card off the teal. */
   .glass-card {
-    @apply rounded-card shadow-card;
-    background: rgb(234 245 247 / 0.72);
-    border: 1px solid rgb(255 255 255 / 0.75);
+    @apply rounded-card;
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.8) 0%, rgb(236 246 248 / 0.68) 100%);
+    border: 1px solid rgb(255 255 255 / 0.55);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.95),
+      0 1px 2px rgb(3 28 36 / 0.08),
+      0 20px 44px -24px rgb(2 22 28 / 0.6);
+    backdrop-filter: blur(28px) saturate(170%);
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
   }
-  /* Dark glass used on the teal window (sidebar, search, chips). */
+  .glass-card-hover {
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .glass-card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.95),
+      0 2px 4px rgb(3 28 36 / 0.08),
+      0 28px 52px -24px rgb(2 22 28 / 0.7);
+  }
+
+  /* Dark glass: sidebar, search and toolbar controls on the wallpaper. */
   .glass-dark {
-    background: rgb(4 22 27 / 0.32);
+    background: linear-gradient(180deg, rgb(10 36 43 / 0.42), rgb(6 26 31 / 0.5));
     border: 1px solid rgb(255 255 255 / 0.1);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
+      0 12px 32px -18px rgb(0 0 0 / 0.6);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
   }
+
   .btn-pill {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-full bg-pill px-4 py-2 text-xs font-semibold text-white transition-[transform,background-color] duration-150 hover:bg-teal-900 active:scale-[0.97];
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full bg-pill px-4 py-2 text-xs font-semibold text-white;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 4px 12px -6px rgb(0 0 0 / 0.5);
+    transition:
+      transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.2s;
+  }
+  .btn-pill:hover {
+    @apply bg-teal-900;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-full border border-white/80 bg-white/55 px-4 py-2 text-xs font-semibold text-ink transition-[transform,background-color] duration-150 hover:bg-white/80 active:scale-[0.97];
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full border border-white/80 bg-white/60 px-4 py-2 text-xs font-semibold text-ink;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9);
+    transition:
+      transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.2s;
+  }
+  .btn-ghost:hover {
+    @apply bg-white/85;
+  }
+  .btn-pill:active,
+  .btn-ghost:active {
+    transform: scale(0.97);
+  }
+  /* A light button for use directly on the teal wallpaper. */
+  .btn-light {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold text-ink;
+    box-shadow: 0 6px 16px -8px rgb(0 0 0 / 0.55);
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s;
+  }
+  .btn-light:hover {
+    @apply bg-aqua-soft;
+  }
+  .btn-light:active {
+    transform: scale(0.97);
   }
   .icon-chip {
-    @apply grid h-8 w-8 place-items-center rounded-lg border border-white/80 bg-white/70 text-ink;
+    @apply grid h-8 w-8 place-items-center rounded-[10px] border border-white/80 bg-white/75 text-ink;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 1), 0 1px 2px rgb(3 28 36 / 0.08);
   }
   .label {
     @apply text-2xs font-medium text-ink-soft;
   }
 }
 
-/* quiet scrollbars */
+/* quiet scrollbars, themed to the wallpaper */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgb(255 255 255 / 0.18) transparent;
+  scrollbar-color: rgb(255 255 255 / 0.2) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(255 255 255 / 0.18);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
 }
 
 @media (prefers-reduced-motion: reduce) {

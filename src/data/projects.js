@@ -3,7 +3,6 @@
 // status:     'Live' | 'In development' | 'Planning'  (never call something live before it is)
 // categories: any of 'Web' | 'Mobile' | 'AI' | 'Systems' | 'Client'
 // image:      put files in /public/assets/ and reference them as '/assets/filename.jpg'
-// caseStudySlug: optional, must match a `slug` in caseStudies.js
 
 export const projects = [
   {
@@ -93,16 +92,14 @@ export const projects = [
     categories: ['Mobile', 'AI'],
     image: '/assets/Liwi app banner.jpg',
     description:
-      'Founded and built Liwi: real-time speech evaluation, GPT-personalised lessons and gamified daily practice, published on Google Play and the App Store.',
+      'An English-speaking practice app I founded and built, with AI speech feedback and personalised lessons. Published on Google Play and the App Store.',
     highlights: [
       'Flutter app with a FastAPI + MongoDB backend on AWS',
       'Speech evaluation with Google Cloud Speech-to-Text; lessons generated with OpenAI GPT',
       'Razorpay subscriptions with signed, idempotent webhooks',
-      '10K+ downloads with a 4.5★ average rating',
     ],
     stack: ['Flutter', 'Dart', 'Python', 'FastAPI', 'MongoDB', 'OpenAI API', 'Google Cloud Speech', 'AWS', 'Razorpay', 'Play & App Store release'],
     links: [],
-    caseStudySlug: 'liwi-ai',
   },
   {
     id: 'kmcc-admin',

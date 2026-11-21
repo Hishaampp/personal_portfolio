@@ -47,7 +47,7 @@ export function BarChart({ data, height = 180 }) {
                 )}
                 <motion.div
                   className={`mx-auto w-full max-w-9 rounded-t-md ${
-                    isFocus ? 'bg-aqua shadow-glow' : 'bg-aqua/55'
+                    isFocus ? 'bg-aqua shadow-lift' : 'bg-aqua/55'
                   }`}
                   initial={reduce ? false : { height: 0 }}
                   animate={{ height: `${Math.max(pct, 1.5)}%` }}

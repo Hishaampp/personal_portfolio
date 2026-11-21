@@ -10,7 +10,7 @@ function Timeline({ items, icon: Icon }) {
         <li key={item.title + item.org} className="relative flex gap-4">
           <span
             className={`relative z-10 grid h-8 w-8 shrink-0 place-items-center rounded-lg border ${
-              item.current ? 'border-aqua bg-aqua text-ink shadow-glow' : 'border-white/80 bg-white/70 text-ink'
+              item.current ? 'border-aqua bg-aqua text-ink shadow-lift' : 'border-white/80 bg-white/70 text-ink'
             }`}
           >
             <Icon size={15} />

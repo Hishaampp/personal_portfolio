@@ -53,8 +53,8 @@ function NavItem({ item, active, onNavigate }) {
       {active && (
         <motion.span
           layoutId="nav-pill"
-          className="absolute inset-0 rounded-xl bg-aqua shadow-glow"
-          transition={{ type: 'spring', stiffness: 520, damping: 38 }}
+          className="absolute inset-0 rounded-xl bg-aqua shadow-lift"
+          transition={{ type: 'spring', stiffness: 380, damping: 34 }}
         />
       )}
       <Icon size={16} strokeWidth={2} className="relative" />
@@ -91,12 +91,16 @@ export default function Sidebar({ view, open, onClose }) {
         aria-label="Main navigation"
       >
         <div className="flex items-center gap-3 px-2 pb-4 pt-1">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-aqua text-sm font-bold text-ink shadow-glow">
-            {siteConfig.initials}
-          </span>
+          <img
+            src={siteConfig.photo}
+            alt=""
+            width="40"
+            height="40"
+            className="h-10 w-10 rounded-xl border border-white/20 object-cover object-top"
+          />
           <div className="min-w-0 flex-1 leading-tight">
             <p className="truncate text-sm font-semibold text-white">{siteConfig.name}</p>
-            <p className="truncate text-2xs text-side-muted">Portfolio console</p>
+            <p className="truncate text-2xs text-side-muted">{siteConfig.role}</p>
           </div>
           <button
             onClick={onClose}
@@ -126,7 +130,7 @@ export default function Sidebar({ view, open, onClose }) {
                 <a
                   key={label}
                   href={url}
-                  {...(download ? { download: 'Hisham-PP-Resume.pdf' } : { target: '_blank', rel: 'noreferrer' })}
+                  {...(download ? { download: 'Hisham-Resume.pdf' } : { target: '_blank', rel: 'noreferrer' })}
                   className="flex items-center gap-3 rounded-xl px-3 py-2 text-[13px] font-medium text-side transition-colors hover:bg-white/[0.06] hover:text-white"
                 >
                   <Icon size={16} />

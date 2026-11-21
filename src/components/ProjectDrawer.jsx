@@ -1,58 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { X, ArrowUpRight, Check } from 'lucide-react'
-import { caseStudies } from '../data/caseStudies'
 import { StatusBadge, Tag } from './ui'
-
-function CaseStudy({ study }) {
-  return (
-    <div className="mt-6 space-y-5 border-t border-ink/10 pt-6">
-      <div>
-        <p className="label">Case study</p>
-        <h3 className="mt-1 text-base font-semibold text-ink">{study.subtitle}</h3>
-      </div>
-      <div className="grid grid-cols-3 gap-2">
-        {study.results.slice(0, 6).map((r) => (
-          <div key={r.label} className="rounded-xl border border-white/80 bg-white/60 p-2.5">
-            <p className="text-base font-semibold text-ink">{r.value}</p>
-            <p className="text-2xs text-ink-soft">{r.label}</p>
-          </div>
-        ))}
-      </div>
-      <div>
-        <p className="mb-2 text-xs font-semibold text-ink">The problem</p>
-        <p className="text-[13px] leading-relaxed text-ink-soft">{study.problem.body}</p>
-      </div>
-      <div>
-        <p className="mb-2 text-xs font-semibold text-ink">Hard problems solved</p>
-        <ul className="space-y-2.5">
-          {study.challenges.map((c) => (
-            <li key={c.title} className="rounded-xl border border-white/80 bg-white/50 p-3">
-              <p className="text-xs font-semibold text-ink">{c.title}</p>
-              <p className="mt-1 text-xs text-ink-soft">{c.challenge}</p>
-              <p className="mt-1 text-xs text-ink">{c.solution}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <p className="mb-2 text-xs font-semibold text-ink">What I learned</p>
-        <ul className="space-y-2">
-          {study.learnings.map((l) => (
-            <li key={l.title} className="text-xs text-ink-soft">
-              <span className="font-semibold text-ink">{l.title}. </span>
-              {l.body}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  )
-}
 
 export default function ProjectDrawer({ project, onClose }) {
   const closeRef = useRef(null)
-  const study = project?.caseStudySlug && caseStudies.find((c) => c.slug === project.caseStudySlug)
 
   useEffect(() => {
     if (!project) return
@@ -66,7 +18,7 @@ export default function ProjectDrawer({ project, onClose }) {
     <AnimatePresence>
       {project && (
         <motion.div
-          className="fixed inset-0 z-50 flex justify-end bg-black/45 backdrop-blur-[2px]"
+          className="fixed inset-0 z-50 flex justify-end bg-black/35 p-0 sm:p-3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -79,8 +31,8 @@ export default function ProjectDrawer({ project, onClose }) {
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ type: 'spring', stiffness: 380, damping: 40 }}
-            className="h-full w-full max-w-xl overflow-y-auto border-l border-white/40 bg-[#d3e6ea]/95 p-5 backdrop-blur-xl sm:p-7"
+            transition={{ type: 'spring', stiffness: 300, damping: 34 }}
+            className="glass-card h-full w-full max-w-xl overflow-y-auto rounded-none p-5 sm:rounded-card sm:p-7"
           >
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -139,12 +91,11 @@ export default function ProjectDrawer({ project, onClose }) {
               ))}
               {project.links.length === 0 && (
                 <p className="text-xs text-ink-soft">
-                  {project.status === 'Planning' ? 'No public code yet.' : 'Private or client code: links on request.'}
+                  {project.status === 'Planning' ? 'No public code yet.' : 'Client or private code. Ask me for a walkthrough.'}
                 </p>
               )}
             </div>
 
-            {study && <CaseStudy study={study} />}
           </motion.aside>
         </motion.div>
       )}

@@ -2,11 +2,11 @@ import { motion } from 'framer-motion'
 
 export function Card({ title, subtitle, action, children, className = '', as: Tag = 'section' }) {
   return (
-    <Tag className={`glass-card p-4 sm:p-5 ${className}`}>
+    <Tag className={`glass-card p-5 sm:p-6 ${className}`}>
       {(title || action) && (
-        <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+        <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
-            {title && <h2 className="text-sm font-semibold text-ink">{title}</h2>}
+            {title && <h2 className="text-[15px] font-semibold text-ink">{title}</h2>}
             {subtitle && <p className="mt-0.5 text-xs text-ink-soft">{subtitle}</p>}
           </div>
           {action}
@@ -43,11 +43,15 @@ export function Tag({ children }) {
 }
 
 // Segmented control with a sliding pill (one layoutId per control).
-export function Segmented({ id, options, value, onChange, dark = true }) {
+// tone="light" sits inside a glass card; tone="dark" sits on the wallpaper.
+export function Segmented({ id, options, value, onChange, tone = 'light' }) {
+  const light = tone === 'light'
   return (
     <div
       role="tablist"
-      className={`inline-flex rounded-full p-0.5 ${dark ? 'border border-white/70 bg-white/45' : 'bg-white/10'}`}
+      className={`inline-flex rounded-full p-0.5 ${
+        light ? 'border border-white/70 bg-white/45' : 'glass-dark'
+      }`}
     >
       {options.map((opt) => {
         const val = typeof opt === 'string' ? opt : opt.value
@@ -60,15 +64,21 @@ export function Segmented({ id, options, value, onChange, dark = true }) {
             aria-selected={active}
             data-sound="nav"
             onClick={() => onChange(val)}
-            className={`relative rounded-full px-3 py-1 text-2xs font-semibold transition-colors ${
-              active ? 'text-white' : 'text-ink-soft hover:text-ink'
+            className={`relative whitespace-nowrap rounded-full px-3 py-1 text-2xs font-semibold transition-colors duration-200 ${
+              active
+                ? light
+                  ? 'text-white'
+                  : 'text-ink'
+                : light
+                  ? 'text-ink-soft hover:text-ink'
+                  : 'text-side hover:text-white'
             }`}
           >
             {active && (
               <motion.span
                 layoutId={`seg-${id}`}
-                className="absolute inset-0 rounded-full bg-pill"
-                transition={{ type: 'spring', stiffness: 520, damping: 40 }}
+                className={`absolute inset-0 rounded-full ${light ? 'bg-pill' : 'bg-white'}`}
+                transition={{ type: 'spring', stiffness: 380, damping: 34 }}
               />
             )}
             <span className="relative">{label}</span>
@@ -79,12 +89,13 @@ export function Segmented({ id, options, value, onChange, dark = true }) {
   )
 }
 
+// Page title, set directly on the teal wallpaper.
 export function PageHeader({ title, subtitle, actions }) {
   return (
-    <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+    <div className="mb-6 flex flex-wrap items-end justify-between gap-4 px-1 pt-1">
       <div className="min-w-0">
-        <h1 className="text-xl font-semibold tracking-tight text-ink sm:text-2xl">{title}</h1>
-        {subtitle && <p className="mt-1 max-w-2xl text-[13px] text-ink-soft">{subtitle}</p>}
+        <h1 className="text-2xl font-semibold text-white sm:text-[28px]">{title}</h1>
+        {subtitle && <p className="mt-1.5 max-w-2xl text-[13px] leading-relaxed text-side">{subtitle}</p>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
     </div>

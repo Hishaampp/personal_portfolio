@@ -30,7 +30,7 @@ export default function Projects() {
 
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <div className="max-w-full overflow-x-auto">
-          <Segmented id="cat" options={CATEGORIES} value={category} onChange={setCategory} />
+          <Segmented id="cat" tone="dark" options={CATEGORIES} value={category} onChange={setCategory} />
         </div>
         <label className="sr-only" htmlFor="status-filter">
           Status
@@ -39,13 +39,13 @@ export default function Projects() {
           id="status-filter"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="rounded-full border border-white/70 bg-white/45 px-3 py-1.5 text-2xs font-semibold text-ink focus:outline-none"
+          className="glass-dark rounded-full px-3 py-1.5 text-2xs font-semibold text-side focus:outline-none [&>option]:text-ink"
         >
           {STATUSES.map((s) => (
             <option key={s}>{s}</option>
           ))}
         </select>
-        <span className="ml-auto text-2xs text-ink-soft">
+        <span className="ml-auto text-2xs text-side-muted">
           {list.length} of {projects.length}
         </span>
       </div>
