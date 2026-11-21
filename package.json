@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "node scripts/sync-github.mjs && vite build",
+    "preview": "vite preview",
+    "sync:github": "node scripts/sync-github.mjs",
+    "resume": "node scripts/build-resume.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
